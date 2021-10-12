@@ -24,6 +24,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/todo-list", async (req, res) => {
+  console.log("GET: /todo-list");
   const todos = await Todo.find();
   res.send(
     todos.map((todo) => {
@@ -37,6 +38,7 @@ app.get("/todo-list", async (req, res) => {
 });
 
 app.post("/todo-list", async (req, res) => {
+  console.log("POST: /todo-list");
   const { title } = req.body;
   const newTodo = new Todo({ title, isFinish: false });
   await newTodo.save();
@@ -44,6 +46,7 @@ app.post("/todo-list", async (req, res) => {
 });
 
 app.put("/todo-list/:id", async (req, res) => {
+  console.log("PUT: /todo-list/:id");
   const { id } = req.params;
   const todo = await Todo.findById(id);
   await todo.update({ isFinish: !todo.isFinish });
@@ -51,6 +54,7 @@ app.put("/todo-list/:id", async (req, res) => {
 });
 
 app.delete("/todo-list/:id", async (req, res) => {
+  console.log("DELETE: /todo-list/:id");
   const { id } = req.params;
   await Todo.findByIdAndDelete(id);
   res.sendStatus(200);
